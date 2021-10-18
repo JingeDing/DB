@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # datasource type
+    driver-class-name: com.mysql.cj.jdbc.Driver #driver name
+    url: jdbc:mysql:///test?useSSL=true&useUnicode=true&characterEncoding=UTF-8 #URL
+    username:
+    password:
+  mvc: #set jsp mapper location: return "index" /index.jsp
+    view:
+      prefix: /
+      suffix: .jsp
+mybatis:
+  type-aliases-package: com.example.springboot.pojo #set mybatis type alias  com.test.studentmanager.pojo
+  mapper-locations: classpath:/mapper/*Mapper.xml #set mapper-locations:  classpath:/mapper/*Mapper.xml
+
+server:
+  port: 8181
+
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql

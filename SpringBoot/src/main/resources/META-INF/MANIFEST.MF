@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Main-Class: com.example.springboot.Application
+Class-Path: j2objc-annotations-1.1.jar swagger-core-1.6.2.jar apiguardia
+ n-api-1.1.2.jar jackson-module-parameter-names-2.12.4.jar spring-core-5
+ .3.9.jar jackson-datatype-jdk8-2.12.4.jar tomcat-embed-el-9.0.52.jar lo
+ mbok-1.18.20.jar spring-jdbc-5.3.9.jar tomcat-embed-core-9.0.52.jar tom
+ cat-embed-jasper-9.0.52.jar junit-jupiter-api-5.8.1.jar shiro-event-1.4
+ .0.jar spring-boot-autoconfigure-2.5.4.jar shiro-config-core-1.4.0.jar 
+ error_prone_annotations-2.2.0.jar logback-core-1.2.5.jar mybatis-3.4.6.
+ jar log4j-to-slf4j-2.14.1.jar spring-jcl-5.3.9.jar commons-collections-
+ 3.2.2.jar shiro-web-1.4.0.jar validation-api-2.0.1.Final.jar HikariCP-4
+ .0.3.jar spring-boot-starter-2.5.4.jar spring-beans-5.3.9.jar mybatis-s
+ pring-boot-starter-1.3.3.jar shiro-core-1.4.0.jar swagger-annotations-1
+ .6.2.jar pagehelper-spring-boot-starter-1.2.10.jar animal-sniffer-annot
+ ations-1.17.jar commons-beanutils-1.9.3.jar spring-context-5.3.9.jar sh
+ iro-crypto-core-1.4.0.jar jsr305-3.0.2.jar mybatis-spring-1.3.2.jar jac
+ kson-dataformat-yaml-2.12.4.jar snakeyaml-1.28.jar spring-boot-2.5.4.ja
+ r opentest4j-1.2.0.jar spring-boot-starter-tomcat-2.5.4.jar jackson-dat
+ abind-2.12.4.jar spring-expression-5.3.9.jar pagehelper-5.1.8.jar sprin
+ g-aop-5.3.9.jar ecj-3.18.0.jar mysql-connector-java-8.0.26.jar jul-to-s
+ lf4j-1.7.32.jar spring-webmvc-5.3.9.jar spring-boot-starter-json-2.5.4.
+ jar jsqlparser-1.2.jar tomcat-embed-websocket-9.0.52.jar mybatis-spring
+ -boot-autoconfigure-1.3.3.jar spring-web-5.3.9.jar shiro-lang-1.4.0.jar
+  commons-lang3-3.12.0.jar swagger-models-1.6.2.jar druid-1.1.22.jar spr
+ ing-boot-starter-logging-2.5.4.jar spring-boot-starter-web-2.5.4.jar sp
+ ring-tx-5.3.9.jar jackson-datatype-jsr310-2.12.4.jar checker-compat-qua
+ l-2.5.2.jar failureaccess-1.0.1.jar slf4j-api-1.7.32.jar shiro-cache-1.
+ 4.0.jar jakarta.annotation-api-1.3.5.jar shiro-crypto-hash-1.4.0.jar sp
+ ring-boot-starter-jdbc-2.5.4.jar guava-27.0.1-android.jar jackson-annot
+ ations-2.12.4.jar shiro-spring-1.4.0.jar shiro-config-ogdl-1.4.0.jar lo
+ gback-classic-1.2.5.jar log4j-api-2.14.1.jar junit-platform-commons-1.7
+ .2.jar jackson-core-2.12.4.jar shiro-crypto-cipher-1.4.0.jar pagehelper
+ -spring-boot-autoconfigure-1.2.10.jar listenablefuture-9999.0-empty-to-
+ avoid-conflict-with-guava.jar
+

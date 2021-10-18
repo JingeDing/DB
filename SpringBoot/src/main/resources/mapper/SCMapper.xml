@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.dao.SCDao">
+
+    <select id="selectCourseBySno" resultMap="Map">
+        SELECT * FROM sc,teacher,course
+        WHERE course.tno=teacher.tno AND sc.sno=#{sno}
+        AND sc.no=course.no AND sc.grade  IS  NULL
+    </select>
+    <resultMap id="Map" type="sc">
+        <result property="sno" column="sno" />
+        <result property="no" column="no" />
+        <result property="grade" column="grade" />
+        <result property="gpa" column="gpa" />
+        <association property="course" javaType="course">
+            <result property="no" column="no" />
+            <result property="name" column="name" />
+            <result property="semester" column="semester" />
+            <result property="credit" column="credit" />
+            <result property="weekday" column="weekday" />
+            <result property="ctime" column="ctime" />
+        </association>
+        <association property="teacher" javaType="teacher">
+            <result property="tno" column="tno" />
+            <result property="tname" column="tname" />
+        </association>
+    </resultMap>
+
+    <select id="selectBySno" parameterType="String" resultType="sc">
+        select sc.no from sc
+        where sc.sno=#{sno}
+    </select>
+
+    <select id="selectCourseBySnoThatCanSelect" resultMap="Map1">
+        SELECT DISTINCT course.no,course.semester,course.name,
+                        teacher.tname,course.credit,course.weekday,course.ctime
+        FROM course,sc,teacher
+        WHERE course.tno=teacher.tno
+          AND course.no not IN (SELECT sc.no FROM sc WHERE sc.sno=#{sno})
+    </select>
+
+    <select id="selectCourseByEverNotSelect" resultMap="Map1">
+        SELECT DISTINCT course.`no`,course.semester,course.`name`,
+                        teacher.tname,course.credit,course.weekday,course.ctime
+        FROM course,teacher
+        WHERE course.tno=teacher.tno
+    </select>
+
+    <resultMap id="Map1" type="sc">
+        <association property="course" javaType="course">
+            <result property="no" column="no" />
+            <result property="semester" column="semester" />
+            <result property="name" column="name" />
+            <result property="credit" column="credit" />
+            <result property="weekday" column="weekday" />
+            <result property="ctime" column="ctime" />
+        </association>
+        <association property="teacher" javaType="teacher">
+            <result property="tno" column="tno" />
+            <result property="tname" column="tname" />
+        </association>
+    </resultMap>
+
+    <insert id="insertData">
+        insert into sc (`sno`,`no`,`weekday`,`ctime`,`semester`)
+        values (#{sno},#{no},#{weekday},#{ctime},#{semester})
+    </insert>
+
+    <delete id="deleteSC">
+        delete from sc
+        where sc.sno=#{sno} AND sc.no=#{no}
+    </delete>
+
+
+    <select id="selectMark" parameterType="String" resultMap="Map2">
+        SELECT sc.`no`,course.`name`,course.semester,course.credit,sc.grade,sc.gpa
+        FROM sc,course
+        WHERE sc.no=course.`no` AND sc.grade IS NOT NULL AND sc.sno=#{sno}
+    </select>
+    <resultMap id="Map2" type="sc">
+        <result property="sno" column="sno" />
+        <result property="no" column="no" />
+        <result property="grade" column="grade" />
+        <result property="gpa" column="gpa" />
+        <association property="course" javaType="course">
+            <result property="credit" column="credit" />
+            <result property="name" column="name" />
+            <result property="semester" column="semester" />
+        </association>
+    </resultMap>
+
+
+    <select id="selectByNo" parameterType="String" resultMap="selectByNoMap">
+        SELECT sc.no,sc.sno,student.sname,sc.grade,course.`name` FROM sc,student,course
+        WHERE sc.no=#{no} AND sc.sno=student.sno AND course.`no`=sc.`no`
+    </select>
+    <resultMap id="selectByNoMap" type="sc">
+        <result property="no" column="no" />
+        <result property="sno" column="sno" />
+        <result property="grade" column="grade" />
+        <association property="student" javaType="student">
+            <result property="sname" column="sname" />
+        </association>
+        <association property="course" javaType="course">
+            <result property="name" column="name" />
+        </association>
+    </resultMap>
+
+
+    <update id="updateGrade">
+        update sc set sc.grade=#{grade},sc.gpa=#{gpa}
+        where sc.sno=#{sno} AND sc.no=#{no}
+    </update>
+
+    <insert id="insertGrade">
+        update sc set sc.grade=#{grade},sc.gpa=#{gpa}
+        where sc.no =#{no} AND sc.sno=#{sno}
+    </insert>
+
+
+</mapper>

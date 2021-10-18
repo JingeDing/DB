@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.dao.ClassDao">
+
+    <select id="selectAllClass" resultMap="Map1">
+        select * from class,department
+        where class.dno=department.dno
+    </select>
+    <resultMap id="Map1" type="class">
+        <result property="cno" column="cno" />
+        <result property="cname" column="cname" />
+        <result property="year" column="year" />
+        <result property="major" column="major" />
+        <result property="dno" column="dno" />
+        <result property="cyear" column="cyear" />
+        <association property="department" javaType="department">
+            <result property="dno" column="dno" />
+            <result property="dname" column="dname" />
+        </association>
+    </resultMap>
+
+
+    <insert id="addClass" parameterType="class">
+        insert into class(`cno`,`cname`,`year`,`major`,`dno`,`cyear`)
+        values (#{cno},#{cname},#{year},#{major},#{dno},#{cyear})
+    </insert>
+
+    <select id="selectById" parameterType="String" resultMap="Map1">
+        select * from class,department
+        where class.dno=department.dno AND class.cno=#{cno}
+    </select>
+
+
+    <update id="updateClass" parameterType="class">
+        update class set cname=#{cname},year=#{year},major=#{major},cyear=#{cyear}
+        where cno=#{cno}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from class
+        where cno=#{cno}
+    </delete>
+
+
+</mapper>

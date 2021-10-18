@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.dao.StudentDao">
+
+    <select id="queryAll" resultType="student">
+        select * from student
+    </select>
+
+    <select id="queryById" resultType="student" resultMap="Map">
+        SELECT * FROM student,class,department
+        WHERE student.cno=class.cno
+        AND class.dno=department.dno AND student.sno=#{sno}
+    </select>
+
+    <select id="selectAll" resultMap="Map">
+        SELECT * FROM student,class,department
+        WHERE student.cno=class.cno
+        AND class.dno=department.dno
+    </select>
+    <resultMap id="Map" type="student">
+        <result property="sno" column="sno" />
+        <result property="sname" column="sname" />
+        <result property="sex" column="sex" />
+        <result property="cno" column="cno" />
+        <association property="department" javaType="department">
+            <result property="dno" column="dno" />
+            <result property="dname" column="dname" />
+        </association>
+        <association property="classItem" javaType="class">
+            <result property="cno" column="cno" />
+            <result property="cname" column="cname" />
+            <result property="year" column="year" />
+            <result property="cyear" column="cyear" />
+            <result property="major" column="major" />
+        </association>
+    </resultMap>
+
+    <insert id="addStudent" parameterType="student">
+        insert  into student(`sno`,`sname`,`sex`,`cno`)
+        values (#{sno},#{sname},#{sex},#{cno})
+    </insert>
+
+
+    <update id="updateStudent" parameterType="student">
+        update student set sname=#{sname},sex=#{sex},cno=#{cno}
+        where sno=#{sno}
+    </update>
+
+    <delete id="deleteById" parameterType="String">
+        delete from student
+        where sno=#{sno}
+    </delete>
+
+    <select id="selectByCno" parameterType="String" resultMap="selectByCnoMap">
+        SELECT department.dname,class.cno,class.cname,class.`year`,class.major,class.cyear, student.sno, student.sname,student.sex
+        FROM student,class,department
+        WHERE student.cno=class.cno AND department.dno=class.dno AND class.cno=#{cno}
+    </select>
+    <resultMap id="selectByCnoMap" type="student">
+        <result property="sno" column="sno" />
+        <result property="sname" column="sname" />
+        <result property="sex" column="sex" />
+        <result property="cno" column="cno" />
+        <association property="department" javaType="department">
+            <result property="dno" column="dno" />
+            <result property="dname" column="dname" />
+        </association>
+        <association property="classItem" javaType="class">
+            <result property="cno" column="cno" />
+            <result property="cname" column="cname" />
+            <result property="year" column="year" />
+            <result property="cyear" column="cyear" />
+            <result property="major" column="major" />
+        </association>
+    </resultMap>
+
+</mapper>

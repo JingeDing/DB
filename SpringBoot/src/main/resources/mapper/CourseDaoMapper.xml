@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.dao.CourseDao">
+
+    <select id="selectAllCourse" resultMap="Map1">
+        select * from course,teacher
+        where course.tno=teacher.tno
+    </select>
+    <resultMap id="Map1" type="course">
+        <result property="no" column="no" />
+        <result property="name" column="name" />
+        <result property="credit" column="credit" />
+        <result property="ctime" column="ctime" />
+        <result property="weekday" column="weekday" />
+        <result property="semester" column="semester" />
+        <result property="tno" column="tno" />
+        <association property="teacher" javaType="teacher">
+            <result property="tno" column="tno" />
+            <result property="tname" column="tname" />
+        </association>
+    </resultMap>
+
+    <select id="selectById" parameterType="String" resultMap="Map1">
+        select * from course,teacher
+        where course.tno=teacher.tno AND `no`=#{no}
+    </select>
+
+
+    <insert id="addCourse" parameterType="course">
+        insert into course(`no`,`name`,`credit`,`ctime`,`tno`,`semester`,`weekday`)
+        values (#{no},#{name},#{credit},#{ctime},#{tno},#{semester},#{weekday})
+    </insert>
+
+
+    <update id="updateCourse" parameterType="course">
+        update course set `name`=#{name},`tno`=#{tno},`credit`=#{credit},`ctime`=#{ctime},`semester`=#{semester},`weekday`=#{weekday}
+        where `no`=#{no}
+    </update>
+
+
+    <delete id="deleteById" parameterType="String">
+        delete from course
+        where `no`=#{no}
+    </delete>
+
+
+    <select id="selectCourseTable" parameterType="String" resultMap="MapTable">
+        SELECT course.`no`,course.`name`,course.weekday,course.ctime
+        FROM sc,course
+        WHERE sc.sno=#{sno} AND sc.grade IS NULL AND sc.`no`=course.`no`
+    </select>
+    <resultMap id="MapTable" type="course">
+        <result property="no" column="no" />
+        <result property="name" column="name" />
+        <result property="weekday" column="weekday" />
+        <result property="ctime" column="ctime" />
+        <association property="sc" javaType="sc">
+            <result property="sno" column="sno" />
+            <result property="grade" column="grade" />
+            <result property="no" column="no" />
+        </association>
+    </resultMap>
+
+
+</mapper>
