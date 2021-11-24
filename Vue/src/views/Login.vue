@@ -1,33 +1,21 @@
 <template>
   <div>
     <body id="poster">
-      <el-form class="login-container" label-position="left" label-width="0px">
-        <h3 class="login_title">教务系统登录</h3>
-        <el-form-item>
-          <el-input
-            type="text"
-            v-model="loginForm.username"
-            auto-complete="off"
-            placeholder="账号"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input
-            type="password"
-            v-model="loginForm.password"
-            auto-complete="off"
-            placeholder="密码"
-          ></el-input>
-        </el-form-item>
-        <el-form-item style="width: 100%">
-          <el-button
-            type="primary"
-            style="width: 100%; background: #505458; border: none"
-            v-on:click="login"
-            >登录</el-button
-          >
-        </el-form-item>
-      </el-form>
+    <el-form class="login-container" label-position="left"
+             label-width="0px">
+      <h3 class="login_title">教务系统登录</h3>
+      <el-form-item>
+        <el-input type="text" v-model="loginForm.username"
+                  auto-complete="off" placeholder="账号"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-input type="password" v-model="loginForm.password"
+                  auto-complete="off" placeholder="密码"></el-input>
+      </el-form-item>
+      <el-form-item style="width: 100%">
+        <el-button type="primary" style="width: 100%;background: #505458;border: none" v-on:click="login">登录</el-button>
+      </el-form-item>
+    </el-form>
     </body>
     <div></div>
   </div>
@@ -39,53 +27,57 @@ export default {
   name: "Login",
   data() {
     return {
-      loginForm: {
-        username: "",
-        password: "",
-      },
-    };
+      loginForm:{
+        username:'',
+        password:''
+      }
+    }
   },
   methods: {
-    login() {
+
+    login(){
       const _this = this;
       this.axios({
-        method: "post",
-        url: "",
-        data: this.loginForm,
-      })
-        .then((response) => {
+        method:"post",
+        URL/:"URL/login",
+        data:this.loginForm,
+      }).then((response)=>{
           let { msg, code, user } = response;
-          if (response.data.code === 200) {
+          if(response.data.code === 200){
             _this.$message({
-              message: "登录成功",
-              type: "success",
-            });
-            if (this.loginForm.username === "admin") {
-              sessionStorage.setItem("token", response.data.token);
-              sessionStorage.setItem("username", "admin");
-              this.$router.push({ path: "/home" });
-            } else {
-              sessionStorage.setItem("username", response.data.data.username);
-              this.$router.push({ path: "/studentView" });
+              message: '登录成功',
+              type: 'success'
+            })
+            if(this.loginForm.username==='admin'){
+              sessionStorage.setItem("token",response.data.token);
+              sessionStorage.setItem("username","admin");
+              this.$router.push({ path: '/home'});
+            }else {
+              sessionStorage.setItem("username",response.data.data.username);
+              this.$router.push({ path: '/studentView' });
             }
-          } else {
-            _this.$message({
-              message: "账号或密码错误",
-              type: "error",
-            });
           }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-  },
-};
+          else {
+            _this.$message({
+              message: '账号或密码错误',
+              type: 'error'
+            })
+          }
+        }).catch(function (error) {
+            console.log(error)
+      })
+    }
+
+
+
+  }
+}
 </script>
+
 
 <style>
 #poster {
-  background-image: url("");
+  background-image: URL/("../assets/photo/bk1.png");
   height: 100%;
   width: 100%;
   background-size: cover;
@@ -112,4 +104,5 @@ body {
   text-align: center;
   color: #505458;
 }
+
 </style>
